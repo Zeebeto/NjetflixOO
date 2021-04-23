@@ -1,46 +1,37 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 
 namespace NjetflixOO
 {
     public class Commandhandler
     {
         public Boolean running = true;
-        // private Command[] _cmds;
-        private static readonly List<Command> _cmds = new List<Command>();
-        private List<string> temp = new List<string>();
-
+        private Command[] _cmds;
+        
         public Commandhandler()
         {
-            _cmds.Add(new Command("help", helpcmd()));
-            _cmds.Add(new Command("return", "returning movie..."));
-            _cmds.Add(new Command("list", listMovies(Store.getUnrentedlist())));
-            // _cmds = new List<Command>()
-            // {
-            //     new Command("help", helpcmd()),
-            //     new Command("return", "returning movie..."),
-            //     new Command("list", listMovies(Store.getUnrentedlist()))
-            // };
+            _cmds = new Command []
+            {
+                new Command("help", ""),
+                new Command("return", "returning movie..."),
+                new Command("list", listMovies(Store.getUnrentedlist())),
+                new Command("test", ""),
+                new Command("test2", ""),
+                new Command("test3", ""),
+                new Command("test4", ""),
+            };
+            Command.setCmdtodo(_cmds);
         }
         
-        private string helpcmd()
+        public static string helpcmd(Command[] commands)
         {
            string print = string.Empty;
-           // string print = $"{_cmds.Count}";
-            // for (int i = 0; i < _cmds.Count; i++)
-            // {
-            //     Console.WriteLine(_cmds[i].name);
-            // }
-            // for (int i = 0; i < _cmds.Length; i++)
-            // {
-            //     cmdlist.Add($"added");
-            // }
-            // foreach (var cmd in _cmds)
-            // {
-            //     print += $"{cmd.name}\n";
-            // }
-            // Console.WriteLine(_cmds.Count);
-            return print;
+           foreach (var cmd in commands)
+           {
+               print += $"{cmd.name}\n";
+           }
+           return print;
         }
         private string listMovies(List<Movies> unrented)
         {
